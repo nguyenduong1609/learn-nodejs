@@ -1,3 +1,4 @@
+//nguyen trong duong
 const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
@@ -5,7 +6,7 @@ const handlebars = require("express-handlebars");
 const app = express();
 const port = 3000;
 
-const route = require('./routes/index')
+const route = require("./routes/index");
 
 app.use(express.static(path.join(__dirname, "public")));
 
