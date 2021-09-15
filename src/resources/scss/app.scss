@@ -1,7 +1,10 @@
 @import 'variables';
 .app {
   
-  font-size: large;
-  color: $red-color;
- 
+}
+
+.img-avatar {
+    width: 30px;
+    border-radius: 50%;
+    margin-right: 5px;
 }

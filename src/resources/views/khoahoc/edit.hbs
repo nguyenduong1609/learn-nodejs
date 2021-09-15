@@ -1,0 +1,37 @@
+<div class='mt-4'>
+  <h3>Cập nhật khóa học</h3>
+
+  <form method='POST' action='/khoahoc/{{khoahoc._id}}?_method=PUT'>
+    <div class='mb-3'>,
+      <label for='name' class='form-label'>Tên khóa học</label>
+      <input type='text' class='form-control' value='{{khoahoc.name}}' id='name' name='name' />
+    </div>
+
+    <div class='mb-3'>
+      <label for='description' class='form-label'>Mô tả</label>
+      <textarea
+        class='form-control'
+        id='description'
+        name='description'
+      >{{khoahoc.description}}</textarea>
+    </div>
+
+    <div class='mb-3'>
+      <label for='videoID' class='form-label'>Video ID</label>
+      <input
+        type='text'
+        class='form-control'
+        value='{{khoahoc.videoID}}'
+        id='videoID'
+        name='videoID'
+      />
+    </div>
+
+    <div class='mb-3'>
+      <label for='lever' class='form-label'>Cấp độ</label>
+      <input type='text' class='form-control' value='{{khoahoc.lever}}' id='lever' name='lever' />
+    </div>
+
+    <button type='submit' class='btn btn-primary'>Lưu khóa học</button>
+  </form>
+</div>
