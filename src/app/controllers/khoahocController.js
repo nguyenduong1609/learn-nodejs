@@ -43,6 +43,21 @@ class khoahocController {
       .catch(next);
   }
 
+  //[POST] /khoahoc/handle-form-action
+  handleformaction(req, res, next) {
+    switch (req.body.action) {
+      case 'delete':
+        Course.delete({ _id: { $in: req.body.khoahocs } })
+          .then(() => res.redirect('back'))
+          .catch(next);
+        break;
+
+      default:
+        res.json({ message: 'Action is invalid!!!!!' });
+        break;
+    }
+  }
+
   //[PATCH] /khoahoc/:id/restore
   restore(req, res, next) {
     Course.restore({ _id: req.params.id })

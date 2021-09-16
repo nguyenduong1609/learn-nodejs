@@ -1,13 +1,42 @@
-<div class='mt-4'>
+<form
+  class='mt-4'
+  name='container-form'
+  method='POST'
+  action='/khoahoc/handle-form-action'
+>
   <div>
     <h2>Khóa Học Của Tôi</h2>
-    <a class='text-decoration-none' href='/me/recycle/khoahoc'>Thùng Rác</a>
+    <a class='text-decoration-none' href='/me/recycle/khoahoc'>Thùng Rác ({{countDeleted}})</a>
+  </div>
+
+  <div class='mt-4 d-flex align-items-center'>
+    <div class='mb-3 form-check'>
+      <input type='checkbox' class='form-check-input' id='checkbok-all' />
+      <label class='form-check-label' for='checkbok-all'>Chọn tất cả</label>
+    </div>
+    <select
+      class='form-select me-3 ms-3'
+      style='width: 15rem;'
+      name='action'
+      required
+    >
+      <option value=''>-- Chọn Hành Động --</option>
+      <option value='delete'>Xóa</option>
+      <option value='2'>Two</option>
+      <option value='3'>Three</option>
+    </select>
+    <button
+      type='submit'
+      class='btn btn-primary checkbox-all-submit-btn disabled'
+    >Áp dụng</button>
+
   </div>
 
   <table class='table mt-4'>
     <thead>
       <tr>
-        <th scope='col'>#</th>
+        <th scope='col'>Chọn</th>
+        <th scope='col'>STT</th>
         <th scope='col'>Tên khóa học</th>
         <th scope='col'>Trình độ</th>
         <th scope='col' colspan='2'>Thời gian tạo</th>
@@ -17,6 +46,17 @@
     <tbody>
       {{#each khoahoc}}
         <tr>
+          <td>
+            <div class='form-check'>
+              <input
+                type='checkbox'
+                class='form-check-input'
+                name='khoahocs[]'
+                value='{{this._id}}'
+              />
+
+            </div>
+          </td>
           <th scope='row'>{{sum @index 1}}</th>
           <td>{{this.name}}</td>
           <td>{{this.lever}}</td>
@@ -45,7 +85,7 @@
       {{/each}}
     </tbody>
   </table>
-</div>
+</form>
 
 {{! hiện cảnh báo }}
 
@@ -86,11 +126,25 @@
 {{! form xóa bỏ ẩn }}
 <form name='delete-khoahoc-form' method='POST'></form>
 <script>
-  var idkhoahoc; var deleteForm = document.forms['delete-khoahoc-form']; var
-  btnDeleteKhoahoc = document.getElementById('btn-delete-khoahoc'); var
-  exampleModal = document.getElementById('exampleModal');
+  document.addEventListener('DOMContentLoaded', function () { var idkhoahoc; var
+  deleteForm = document.forms['delete-khoahoc-form']; var btnDeleteKhoahoc =
+  document.getElementById('btn-delete-khoahoc'); var exampleModal =
+  document.getElementById('exampleModal'); var btnCheckbokAll =
+  $('#checkbok-all'); var CheckbookAllSubmitBtn = $('.checkbox-all-submit-btn');
+  var btnCheckbokKhoahoc = $('input[name="khoahocs[]"]');
   exampleModal.addEventListener('show.bs.modal', function (event) { var button =
-  event.relatedTarget; idkhoahoc = button.getAttribute('data-bs-id')});
-  btnDeleteKhoahoc.onclick = function () { deleteForm.action =
-  '/khoahoc/'+idkhoahoc +'?_method=DELETE'; deleteForm.submit()};
+  event.relatedTarget; idkhoahoc = button.getAttribute('data-bs-id'); });
+  btnDeleteKhoahoc.onclick = function () { deleteForm.action = '/khoahoc/' +
+  idkhoahoc + '?_method=DELETE'; deleteForm.submit(); };
+  btnCheckbokAll.change(function () { var valuebtnCheckbokAll =
+  $(this).prop('checked'); btnCheckbokKhoahoc.prop('checked',
+  valuebtnCheckbokAll); activeCheckbookAllSubmitBtn(); });
+  btnCheckbokKhoahoc.change(function () { var isCheckedAll =
+  btnCheckbokKhoahoc.length === $('input[name="khoahocs[]"]:checked').length;
+  btnCheckbokAll.prop('checked', isCheckedAll); activeCheckbookAllSubmitBtn();
+  }); function activeCheckbookAllSubmitBtn() { var countbtnCheckbokKhoahoc =
+  $('input[name="khoahocs[]"]:checked').length; if (countbtnCheckbokKhoahoc) {
+  CheckbookAllSubmitBtn.removeClass('disabled')} else
+  CheckbookAllSubmitBtn.addClass('disabled') } });
+
 </script>

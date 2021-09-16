@@ -6,6 +6,7 @@ const khoahocController = require('../app/controllers/khoahocController');
 router.get('/create', khoahocController.create);
 router.post('/store', khoahocController.store);
 router.get('/:id/edit', khoahocController.edit);
+router.post('/handle-form-action', khoahocController.handleformaction);
 router.put('/:id', khoahocController.update);
 router.patch('/:id/restore', khoahocController.restore);
 router.delete('/:id', khoahocController.delete);

@@ -2,15 +2,27 @@ const { mutipleMongooseToObject } = require('../../util/mongoose');
 const Course = require('../models/Course');
 
 class MeController {
-  // [GET] /me/stored/khoahocs
+  // [GET] /me/stored/khoahoc
   storedKhoahoc(req, res, next) {
-    Course.find({})
-      .then((khoahoc) => {
+    Promise.all([Course.find({}), Course.countDocumentsDeleted()]).then(
+      ([khoahoc, countDeleted]) =>
         res.render('me/storedKhoahoc', {
+          countDeleted,
           khoahoc: mutipleMongooseToObject(khoahoc),
-        });
-      })
-      .catch(next);
+        })
+    );
+
+    // Course.find({})
+    //   .then((khoahoc) => {
+    //     res.render('me/storedKhoahoc', {
+    //       khoahoc: mutipleMongooseToObject(khoahoc),
+    //     });
+    //   })
+    //   .catch(next);
+
+    // Course.countDocumentsDeleted()
+    //   .then((countDeleted) => console.log(countDeleted))
+    //   .catch(() => {});
   }
 
   // [GET] /me/recycle/khoahocs

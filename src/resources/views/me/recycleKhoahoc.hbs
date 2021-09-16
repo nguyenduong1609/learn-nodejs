@@ -12,7 +12,7 @@
         <th scope='col'>#</th>
         <th scope='col'>Tên khóa học</th>
         <th scope='col'>Trình độ</th>
-        <th scope='col' colspan='2'>Thời gian tạo</th>
+        <th scope='col' colspan='2'>Thời gian xóa</th>
 
       </tr>
     </thead>
@@ -22,7 +22,7 @@
           <th scope='row'>{{sum @index 1}}</th>
           <td>{{this.name}}</td>
           <td>{{this.lever}}</td>
-          <td>{{this.createdAt}}</td>
+          <td>{{this.deletedAt}}</td>
           <td>
             <a
               href=''
@@ -93,19 +93,17 @@
 
 {{! form khôi phục ẩn }}
 <form name='restore-khoahoc-form' method='POST'></form>
-
 <script>
   document.addEventListener('DOMContentLoaded', function () { var idkhoahoc; var
   deleteForm = document.forms['delete-khoahoc-form']; var restoreForm =
   document.forms['restore-khoahoc-form']; var btnDeleteKhoahoc =
   document.getElementById('btn-delete-khoahoc'); var exampleModal =
-  document.getElementById('exampleModal'); var restoreBtn =$('.btn-restore');
+  document.getElementById('exampleModal'); var restoreBtn = $('.btn-restore');
   exampleModal.addEventListener('show.bs.modal', function (event) { var button =
   event.relatedTarget; idkhoahoc = button.getAttribute('data-bs-id'); });
   btnDeleteKhoahoc.onclick = function () { deleteForm.action = '/khoahoc/' +
   idkhoahoc + '/norestore?_method=DELETE'; deleteForm.submit(); };
-  restoreBtn.click(function (e) {e.preventDefault(); var khoahocIDrestore =
+  restoreBtn.click(function (e) { e.preventDefault(); var khoahocIDrestore =
   $(this).data('id'); restoreForm.action = '/khoahoc/' + khoahocIDrestore +
-  '/restore?_method=PATCH'; restoreForm.submit(); }) });
-
+  '/restore?_method=PATCH'; restoreForm.submit(); }); });
 </script>
